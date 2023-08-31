@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import LoadingContainer from "../components/LoadingContainer/LoadingContainer";
 import GameGrid from "../components/GameGrid/GameGrid";
-import Nav from "../components/Nav/Nav";
+import Nav from "../components/Navigation/Navigation";
 import { Filters, useGetGamesQuery, FilterName } from "../redux";
 import { useAppSelector } from "../hooks/index";
 
