@@ -9,9 +9,6 @@
 git clone git@github.com:Tabigone/avito-test-task.git
 ```
 ```
-cd my-app
-```
-```
 npm install
 ```
 Проект запускается на порту :3001 командой

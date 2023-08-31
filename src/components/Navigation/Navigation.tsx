@@ -1,7 +1,7 @@
 import { filtersSlice } from "../../redux/filters";
 import { Select, Space } from "antd";
 import logo from "../../img/freetogame-logo.png";
-import "./Nav.css";
+import "./Navigation.css";
 import { Filters } from "../../redux";
 import { useAppDispatch } from "../../hooks";
 
