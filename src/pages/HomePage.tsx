@@ -1,13 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import LoadingContainer from "../components/LoadingContainer/LoadingContainer";
 import GameGrid from "../components/GameGrid/GameGrid";
 import Nav from "../components/Nav/Nav";
-import { Filters, useGetGamesQuery } from "../redux";
-import { useSelector } from "react-redux";
+import { Filters, useGetGamesQuery, FilterName } from "../redux";
+import { useAppSelector } from "../hooks/index";
 
 const HomePage: React.FC = () => {
-  const filters = useSelector((state: { filters: Filters }) => state.filters);
-  const { data = [], isLoading, isError, error } = useGetGamesQuery(filters);
+  const filters = useAppSelector((state) => state.filters);
+  const [currentQuery, setCurrentQuery] = useState<
+    Partial<Record<FilterName, string>>
+  >({});
+  const {
+    data = [],
+    isLoading,
+    isError,
+    error,
+  } = useGetGamesQuery(currentQuery);
+
+  useEffect(() => {
+    let newQuery: Partial<Record<FilterName, string>> = {};
+    let key: keyof Filters;
+    for (key in filters) {
+      if (filters[key].currentValue) {
+        newQuery[key] = filters[key].currentValue;
+      }
+    }
+    setCurrentQuery(newQuery);
+  }, [filters]);
 
   return (
     <>
@@ -15,8 +34,8 @@ const HomePage: React.FC = () => {
       <div>
         {isError ? (
           <p>
-            An error has occurred:{" "}
-            {error && "data" in error && JSON.stringify(error.data)}
+            <span>An error has occurred:</span>
+            <span>{(error as {}) && JSON.stringify(error)}</span>
           </p>
         ) : isLoading ? (
           <LoadingContainer />

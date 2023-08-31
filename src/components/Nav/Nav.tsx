@@ -1,12 +1,12 @@
-import { useDispatch } from "react-redux";
 import { filtersSlice } from "../../redux/filters";
 import { Select, Space } from "antd";
 import logo from "../../img/freetogame-logo.png";
-import "./nav.css";
+import "./Nav.css";
 import { Filters } from "../../redux";
+import { useAppDispatch } from "../../hooks";
 
 const Nav = ({ filters }: { filters: Filters }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { setFilterCurrentValue } = filtersSlice.actions;
   const onSelectChangeHandler = (value: string, key: keyof Filters) => {
@@ -15,7 +15,7 @@ const Nav = ({ filters }: { filters: Filters }) => {
 
   return (
     <nav className="nav">
-      <img className="nav__logo" src={logo} alt="Логотип" />
+      <img loading="lazy" className="nav__logo" src={logo} alt="Логотип" />
       <Space className="nav__space">
         {Object.values(filters).map((filter) => (
           <Select

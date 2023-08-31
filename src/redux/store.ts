@@ -1,15 +1,16 @@
-import {configureStore} from '@reduxjs/toolkit'
-import {ftpApi} from "./ftpApi";
-import filters from './filters'
+import { configureStore } from "@reduxjs/toolkit";
+import { ftpApi } from "./ftpApi";
+import filters from "./filters";
 
 export const store = configureStore({
   reducer: {
     [ftpApi.reducerPath]: ftpApi.reducer,
-    filters
+    filters,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(ftpApi.middleware)
-})
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(ftpApi.middleware),
+});
 
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<typeof store.getState>;
 
-export type AppDispatch = typeof store.dispatch
+export type AppDispatch = typeof store.dispatch;

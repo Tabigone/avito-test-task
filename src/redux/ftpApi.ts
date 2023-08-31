@@ -1,5 +1,5 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Filters } from "./filters";
+import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
+import { FilterName } from "./filters";
 
 export type GamesResponse = GameItem[];
 
@@ -52,27 +52,22 @@ type SpecificGameResponseScreenshots = [
 
 export const ftpApi = createApi({
   reducerPath: "ftpApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "https://free-to-play-games-database.p.rapidapi.com/api/",
-    method: "GET",
-    headers: {
-      "X-RapidAPI-Key": "af0d6141cemsh8c372f886bd4258p1871d2jsn95955ef1589b",
-      "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
-    },
-  }),
+  baseQuery: retry(
+    fetchBaseQuery({
+      baseUrl: "https://free-to-play-games-database.p.rapidapi.com/api/",
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": "af0d6141cemsh8c372f886bd4258p1871d2jsn95955ef1589b",
+        "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+      },
+    }),
+    { maxRetries: 3 }
+  ),
   endpoints: (build) => ({
-    getGames: build.query<GamesResponse, Filters>({
+    getGames: build.query<GamesResponse, Partial<Record<FilterName, string>>>({
       query: (filters) => ({
         url: "games",
-        params: Object.entries(filters).reduce<Record<string, string>>(
-          (acc, [key, item]) => {
-            if (item.currentValue) {
-              acc[key] = item.currentValue;
-            }
-            return acc;
-          },
-          {}
-        ),
+        params: filters,
       }),
     }),
     getSpecificGame: build.query<SpecificGameResponse, string>({

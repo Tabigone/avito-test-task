@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { DefaultOptionType } from "antd/es/select";
 
-type FilterName = "platform" | "category" | "sort-by";
+export type FilterName = "platform" | "category" | "sort-by";
 
 type FilterItem = {
   key: FilterName;
@@ -10,9 +10,7 @@ type FilterItem = {
   options: DefaultOptionType[];
 };
 
-export type Filters = {
-  [key in FilterName]: FilterItem;
-};
+export type Filters = Record<FilterName, FilterItem>;
 
 const platformOptions: DefaultOptionType[] = [
   {

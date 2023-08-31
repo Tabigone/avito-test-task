@@ -1,6 +1,6 @@
 import React from "react";
 import { Spin } from "antd";
-import './LoadingContainer.css';
+import "./LoadingContainer.css";
 
 const LoadingContainer: React.FC = () => {
   return (

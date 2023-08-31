@@ -1,7 +1,7 @@
 import { Card } from "antd";
 import { Link } from "react-router-dom";
 import { GameItem } from "../../redux";
-import './GameContainer.css'
+import "./GameContainer.css";
 
 const GameCard = ({ game }: { game: GameItem }) => {
   const releaseDate = new Date(game.release_date);
@@ -14,7 +14,12 @@ const GameCard = ({ game }: { game: GameItem }) => {
   return (
     <Link to={`/game?id=${game.id}`}>
       <Card hoverable className="game-container">
-        <img className="game-container__image" src={game.thumbnail} alt={game.title} />
+        <img
+          loading="lazy"
+          className="game-container__image"
+          src={game.thumbnail}
+          alt={game.title}
+        />
         <p className="game-container__text">{game.title}</p>
         <p className="game-container__text">{game.publisher}</p>
         <p className="game-container__text">{game.genre}</p>

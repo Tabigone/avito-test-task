@@ -1,6 +1,6 @@
 import GameCard from "../GameContainer/GameContainer";
 import { GamesResponse } from "../../redux/ftpApi";
-import './GameGrid.css';
+import "./GameGrid.css";
 
 const GameGrid = ({ data }: { data: GamesResponse }) => {
   return (
